@@ -1,0 +1,72 @@
+    <table class="table table-hover">
+        <tr>
+            <td width="70px">
+                <a href="{{ url_for('main.user', username=post.author.username) }}">
+                    <img src="{{ post.author.avatar(70) }}" />
+                </a>
+            </td>
+            <td>
+                {% set user_link %}
+                    <a href="{{ url_for('main.user', username=post.author.username) }}">
+                        {{ post.author.username }}
+                    </a>
+                {% endset %}
+                {{ _('%(username)s posted %(when)s',
+                    username=user_link, when=moment(post.timestamp).fromNow()) }}
+                <br>
+                <p>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <ul>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% endwith %}
+                </p>
+                {% if post.photo_name %}
+                    <div>
+                        <img src="../static/uploads/{{ post.photo_name }}" width="33%">
+                    </div>
+                {% endif %}
+                <div></div>
+                <div>
+                    <ul>PHOTO NAME:
+                        <li>{{ post.photo_name }}</li>
+                    </ul>
+                    <ul>DESCRIPTION: 
+                        <li>{{ post.description }}</li>
+                    </ul>
+                    <ul>WORLD: 
+                        <li>{{ post.world }}</li>
+                    </ul>
+                    <ul>MODE: 
+                        <li>{{ post.mode }}</li>
+                    </ul>
+                    <ul>MATERIALS USED: 
+                        <li>{{ post.materials }}</li>
+                    </ul>
+                    <ul>TIME TO BUILD: 
+                        <li>{{ post.time_invested }}</li>
+                    </ul>
+                    <ul>r/MINECRAFTBUILDS: 
+                        <li>{{ post.reddit }}</li>
+                    </ul>
+                    <ul>OTHER LINKS: 
+                        <li>{{ post.link_other }}</li>
+                    </ul>
+                </div>
+                {% if post.language and post.language != g.locale %}
+                <br><br>
+                <span id="translation{{ post.id }}">
+                    <a href="javascript:translate(
+                                '#post{{ post.id }}',
+                                '#translation{{ post.id }}',
+                                '{{ post.language }}',
+                                '{{ g.locale }}');">{{ _('Translate') }}</a>
+                </span>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
