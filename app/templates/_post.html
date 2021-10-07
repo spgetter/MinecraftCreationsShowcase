@@ -1,4 +1,4 @@
-    <table class="table table-hover">
+    <table class="table">
         <tr>
             <td width="70px">
                 <a href="{{ url_for('main.user', username=post.author.username) }}">
@@ -26,37 +26,18 @@
                     {% endwith %}
                 </p>
                 {% if post.photo_name %}
-                    <div>
-                        <img src="../static/uploads/{{ post.photo_name }}" width="33%">
-                    </div>
-                {% endif %}
-                <div></div>
                 <div>
-                    <ul>PHOTO NAME:
-                        <li>{{ post.photo_name }}</li>
-                    </ul>
-                    <ul>DESCRIPTION: 
-                        <li>{{ post.description }}</li>
-                    </ul>
-                    <ul>WORLD: 
-                        <li>{{ post.world }}</li>
-                    </ul>
-                    <ul>MODE: 
-                        <li>{{ post.mode }}</li>
-                    </ul>
-                    <ul>MATERIALS USED: 
-                        <li>{{ post.materials }}</li>
-                    </ul>
-                    <ul>TIME TO BUILD: 
-                        <li>{{ post.time_invested }}</li>
-                    </ul>
-                    <ul>r/MINECRAFTBUILDS: 
-                        <li>{{ post.reddit }}</li>
-                    </ul>
-                    <ul>OTHER LINKS: 
-                        <li>{{ post.link_other }}</li>
-                    </ul>
+                    <img src="../static/uploads/{{ post.photo_name }}" width="100%">
                 </div>
+                {% endif %}
+                <p style="word-break: break-all; font-size: small;">{{ post.photo_name }}</p>
+                <p style="word-break: break-all;">DESCRIPTION: {{ post.description }}</p>
+                <p style="word-break: break-all;">WORLD: {{ post.world }}</p>
+                <p style="word-break: break-all;">MODE: {{ post.mode }}</p>
+                <p style="word-break: break-all;">MATERIALS USED: {{ post.materials }}</p>
+                <p style="word-break: break-all;">TIME TO BUILD: {{ post.time_invested }}</p>
+                <p style="word-break: break-all;">r/MINECRAFTBUILDS: {{ post.reddit }}</p>
+                <p style="word-break: break-all;">OTHER LINKS: {{ post.link_other }}</p>
                 {% if post.language and post.language != g.locale %}
                 <br><br>
                 <span id="translation{{ post.id }}">

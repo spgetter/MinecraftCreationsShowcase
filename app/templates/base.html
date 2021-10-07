@@ -2,9 +2,8 @@
 {% block title %}
     {% if title %}{{ title }} - Minecraft Creations Showcase{% else %}{{ _('Welcome to Minecraft Creations Showcase') }}{% endif %}
 {% endblock %}
-
 {% block navbar %}
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" style="color: white; background-color: darkgreen;">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -20,13 +19,13 @@
                     <li><a href="{{ url_for('main.index') }}">{{ _('Home') }}</a></li>
                     <li><a href="{{ url_for('main.explore') }}">{{ _('Explore') }}</a></li>
                 </ul>
-                {% if g.search_form %}
+                <!-- {% if g.search_form %}
                 <form class="navbar-form navbar-left" method="get" action="{{ url_for('main.search') }}">
                     <div class="form-group">
                         {{ g.search_form.q(size=20, class='form-control', placeholder=g.search_form.q.label.text) }}
                     </div>
                 </form>
-                {% endif %}
+                {% endif %} -->
                 <ul class="nav navbar-nav navbar-right">
                     {% if current_user.is_anonymous %}
                     <li><a href="{{ url_for('auth.login') }}">{{ _('Login') }}</a></li>
@@ -41,7 +40,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container" style="color: white; background-color:darkolivegreen;">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
