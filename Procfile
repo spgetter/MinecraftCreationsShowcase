@@ -1,1 +1,1 @@
-web: gunicorn app:app --preload --timeout 60
+web: flask db upgrade; flask translate compile; gunicorn flaskshowcase:app

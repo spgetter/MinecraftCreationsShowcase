@@ -1,6 +1,7 @@
 *.py[cod]
 .env
 migrations
+tests.py
 
 # C extensions
 *.so
