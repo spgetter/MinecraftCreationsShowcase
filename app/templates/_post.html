@@ -38,7 +38,8 @@
                 <p style="word-break: break-all;">TIME TO BUILD: {{ post.time_invested }}</p>
                 <p style="word-break: break-all;">r/MINECRAFTBUILDS: {{ post.reddit }}</p>
                 <p style="word-break: break-all;">OTHER LINKS: {{ post.link_other }}</p>
-                {% if post.language and post.language != g.locale %}
+            </td>
+                {% if post.language and post.language != g.locale %}    
                 <br><br>
                 <span id="translation{{ post.id }}">
                     <a href="javascript:translate(

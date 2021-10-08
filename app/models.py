@@ -59,6 +59,11 @@ followers = db.Table(
     db.Column('followed_id', db.Integer, db.ForeignKey('user.id'))
 )
 
+# likes = db.Table(
+#     'likes',
+#     db.Column('liker_id', db.Integer, db.ForeignKey('post.id')),
+#     db.Column('liked_id', db.Integer, db.ForeignKey('post.id'))
+# )
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -129,7 +134,6 @@ class User(UserMixin, db.Model):
 def load_user(id):
     return User.query.get(int(id))
 
-
 class Post(SearchableMixin, db.Model):
     __searchable__ = ['body']
     id = db.Column(db.Integer, primary_key=True)
@@ -143,6 +147,11 @@ class Post(SearchableMixin, db.Model):
     link_other = db.Column(db.String(300))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    # liked = db.relationship(
+    #     'Post', secondary=likes,
+    #     primaryjoin=(likes.c.liker_id == id),
+    #     secondaryjoin=(likes.c.liked_id == id),
+    #     backref=db.backref('likes', lazy='dynamic'), lazy='dynamic')
 
     def __init__(self,photo_name, description,world,mode,materials,time_invested,reddit,link_other,user_id,language):
         self.id = self.id
@@ -157,6 +166,18 @@ class Post(SearchableMixin, db.Model):
         self.timestamp = self.timestamp
         self.user_id = user_id
         self.language = language
+
+    # def like(self, post):
+    #     if not self.is_liked(post):
+    #         self.liked.append(post)
+
+    # def unlike(self, post):
+    #     if self.is_liked(post):
+    #         self.liked.remove(post)
+
+    # def is_liked(self, post):
+    #     return self.liked.filter(
+    #         likes.c.liked_id == post.id).count() > 0
 
     def __repr__(self):
         return '<Post {}>'.format(self.body)

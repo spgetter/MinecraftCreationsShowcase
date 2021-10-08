@@ -4,7 +4,15 @@
 {% block app_content %}
     <h1>{{ _('Hi, %(username)s!', username=current_user.username) }}</h1>
     {% if form %}
-    {{ wtf.quick_form(form) }}
+    <button type="button"
+        class="btn btn-primary"
+        data-toggle="collapse"
+        data-target="#newPost">
+        New Post
+    </button>     
+    <div id="newPost" class="collapse">
+        {{ wtf.quick_form(form) }}
+    </div>
     {% endif %}
     <br>
     <nav aria-label="...">
@@ -27,3 +35,5 @@
     </div>
     {% endfor %}
 {% endblock %}
+
+

@@ -8,6 +8,7 @@ from werkzeug.utils import secure_filename
 from werkzeug.datastructures import CombinedMultiDict
 from langdetect import detect, LangDetectException
 from app import db
+# from app.main.forms import EditProfileForm, EditPostForm, EmptyForm, PostForm, SearchForm
 from app.main.forms import EditProfileForm, EmptyForm, PostForm, SearchForm
 from app.models import User, Post
 from app.translate import translate
@@ -89,7 +90,6 @@ def explore():
                            posts=posts.items, next_url=next_url,
                            prev_url=prev_url)
 
-
 @bp.route('/user/<username>')
 @login_required
 def user(username):
@@ -104,7 +104,6 @@ def user(username):
     form = EmptyForm()
     return render_template('user.html', user=user, posts=posts.items,
                            next_url=next_url, prev_url=prev_url, form=form)
-
 
 @bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
@@ -122,6 +121,21 @@ def edit_profile():
     return render_template('edit_profile.html', title=_('Edit Profile'),
                            form=form)
 
+# @bp.route('/edit_post', methods=['GET', 'POST'])
+# @login_required
+# def edit_post():
+#     form = EditPostForm(current_post.id)
+#     if form.validate_on_submit():
+#         current_post.username = form.username.data
+#         current_post.about_me = form.about_me.data
+#         db.session.commit()
+#         flash(_('Your changes have been saved.'))
+#         return redirect(url_for('main.edit_profile'))
+#     elif request.method == 'GET':
+#         form.username.data = current_user.username
+#         form.about_me.data = current_user.about_me
+#     return render_template('edit_profile.html', title=_('Edit Profile'),
+#                            form=form)
 
 @bp.route('/follow/<username>', methods=['POST'])
 @login_required
@@ -162,6 +176,44 @@ def unfollow(username):
     else:
         return redirect(url_for('main.index'))
 
+# @bp.route('/like/<post>', methods=['POST'])
+# @login_required
+# def like(post):
+#     form = EmptyForm()
+#     if form.validate_on_submit():
+#         post = Post.query.filter_by(id=id).first()
+#         if post.id is None:
+#             flash(_('Post %(id) not found.', id=id))
+#             return redirect(url_for('main.index'))
+#         if post.user_id == current_user.id:
+#             flash(_('You cannot like your own post!'))
+#             return redirect(url_for('main.index', id=id))
+#         current_user.like(post)
+#         db.session.commit()
+#         flash(_('You liked this post!', id=id))
+#         return redirect(url_for('main.index', id=id))
+#     else:
+#         return redirect(url_for('main.index'))
+
+
+# @bp.route('/unlike/<post>', methods=['POST'])
+# @login_required
+# def unlike(post):
+#     form = EmptyForm()
+#     if form.validate_on_submit():
+#         post = Post.query.filter_by(id=id).first()
+#         if post.id is None:
+#             flash(_('Post %(id) not found.', id=id))
+#             return redirect(url_for('main.index'))
+#         if post.user_id == current_user.id:
+#             flash(_('You cannot unlike your own post!'))
+#             return redirect(url_for('main.index', id=id))
+#         current_user.unlike(post)
+#         db.session.commit()
+#         flash(_('You unliked this post.', id=id))
+#         return redirect(url_for('main.index', id=id))
+#     else:
+#         return redirect(url_for('main.index'))
 
 @bp.route('/translate', methods=['POST'])
 @login_required
