@@ -1,1 +1,1 @@
-web: gunicorn flaskshowcase:app --preload --timeout 60
+web: gunicorn flaskshowcase.py:app --preload --timeout 60
